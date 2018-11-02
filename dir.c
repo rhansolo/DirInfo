@@ -9,9 +9,14 @@
 #include <dirent.h>
 #include <sys/types.h>
 
-int main(){
+int main(int argc, char * argv[]){ 
   DIR *d;
-  d = opendir(".");
+  char * dir;
+  d = opendir(argv[1]);
+  if (argc == 0){
+    printf("Put in a directory\n");
+    fgets(
+  }
   struct dirent *entry;
   entry = readdir(d);
   char * file_name;
