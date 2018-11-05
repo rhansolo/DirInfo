@@ -9,32 +9,41 @@
 #include <dirent.h>
 #include <sys/types.h>
 
-int main(int argc, char * argv[]){ 
+void printDir(char *dir){
   DIR *d;
-  char * dir;
-  d = opendir(argv[1]);
-  if (argc == 0){
-    printf("Put in a directory\n");
-    fgets(
-  }
+  d = opendir(dir);
   struct dirent *entry;
   entry = readdir(d);
-  char * file_name;
-  struct stat *st;
+  struct stat* file = malloc(sizeof(struct stat));  
   int size = 0;
-  char *loc = ".";
-  stat(loc,st);
-  while (entry != NULL){
-    size += st->st_size;
-    file_name = entry->d_name;
+
+  while (entry){
+    size += file->st_size;
+    stat(entry->d_name,file);
     if ((entry->d_type) == DT_DIR){
-      printf("directory: %s \n",file_name);
+      printf("directory: %s \n",entry->d_name);
     }
     else{
-      printf("File: %s \n",file_name);
+      printf("File: %s \n",entry->d_name);
     }
     entry = readdir(d);
   }
   printf("Total size: %d\n" , size);
   closedir(d);
+  
+}
+
+
+int main(int argc, char * argv[]){ 
+
+  char * dir = malloc(100);
+  if (argc == 1){
+    printf("Put in a directory\n");
+    scanf("%s",dir);
+  }
+  else{
+    scanf(dir,argv[1]);
+  }
+  printDir(dir);
+  return 0;
 }
