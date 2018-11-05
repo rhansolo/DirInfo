@@ -41,6 +41,10 @@ int main(int argc, char * argv[]){
     printf("Put in a directory\n");
     scanf("%s",dir);
   }
+  else if (argc > 2) {
+      printf("Too many arguements");
+      return 0;
+  }
   else{
     scanf(dir,argv[1]);
   }
